@@ -12,13 +12,14 @@ for folderName, subfolders, filenames in os.walk(folder):
 
 for folderName in foldernamesList:
     for item in os.listdir(folderName):
-        file = os.path.join(folderName, item)                    
+        file = os.path.join(folderName, item)
         if os.path.dirname(file) != destination:
             try:
                 shutil.move(file, destination)
             except shutil.Error:
-                os.rename(file, os.path.join(folderName, ('unpacked_' + item)))
-                file = os.path.join(folderName, ('unpacked_' + item))
+                newName = 'unpacked_' + item
+                os.rename(file, os.path.join(folderName, (newName)))
+                file = os.path.join(folderName, (newName))
                 shutil.move(file, destination)
 
 # Delete empty folders
