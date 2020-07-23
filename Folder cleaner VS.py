@@ -39,4 +39,3 @@ while True:
         for filename in os.listdir(folderToClean):
             if getSuffixWithoutDot(filename).lower() == filetype.lower():
                 shutil.move((os.path.join(folderToClean, filename)), newFolder)
-        print(f'Files moved to the folder {newFolder}')
