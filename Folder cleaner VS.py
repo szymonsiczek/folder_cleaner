@@ -6,10 +6,10 @@ from pathlib import Path
 import os
 import shutil
 
-os.chdir(r'C:\Users\User\Dropbox\Python\Własne wariacje\Folder cleaner.py')
+os.chdir(r'C:\Users\User\Dropbox\Python\my_projects')
 
 
-def separateAndStripFileTypes(string):
+def separate_and_strip_file_types(string):
     listOfFilesToClean = string.split(', ')
     for file in listOfFilesToClean:
         listOfFilesToClean[listOfFilesToClean.index(file)] = file.strip()
@@ -28,7 +28,7 @@ folderToClean = input()
 while True:
     print('\nPlease define what kind of files would you like to segregate. Pass them below with commas and spaces but without dots. Here is an example: "jpg, pdf, docx, zip".\n(OrPress "CTRL + C" to escape.)')
     fileTypesToClean = input()
-    finalListOfFileTypes = separateAndStripFileTypes(fileTypesToClean)
+    finalListOfFileTypes = separate_and_strip_file_types(fileTypesToClean)
 
     # Create a new folder for every type of file
     for filetype in finalListOfFileTypes:

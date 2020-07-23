@@ -7,8 +7,10 @@ foldernamesList = []
 for foldername, subfolders, filename in os.walk(folder):
     foldernamesList.append(foldername)
     
-for emptyFolder in range(len(foldernamesList)):
-    if foldernamesList[-1] != folder:
-        os.rmdir(foldernamesList[-1])
-        del foldernamesList[-1]
+for emptyFolder in (foldernamesList):
+    if emptyFolder != folder:
+        try:
+            os.rmdir(emptyFolder)    
+        except OSError:
+            continue
 
