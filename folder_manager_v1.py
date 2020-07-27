@@ -3,9 +3,15 @@ import os
 import shutil
 
 
-def findFileTypesInFolder(folder):
+def folderToClean():
+    print('Please enter the absolute path of a folder, that you want to work with:')
+    folderToClean = input()
+    return folderToClean
+
+
+def findFileTypesInFolder(folderToClean):
     finalListofFileTypes = []
-    for filename in os.listdir(folder):
+    for filename in os.listdir(folderToClean):
         suffix = Path(os.path.join(folderToClean, filename)).suffix.strip('.')
         if suffix not in finalListofFileTypes:
             finalListofFileTypes.append(suffix)
@@ -67,12 +73,10 @@ def automatic_folder_cleaner():
 
 
 def subfolder_unpacker():
-    print('Unpack files from subfolders of:')
-    folder = input()
-    destination = folder
+    destination = folderToClean
     # Unpack files from subfolders:
     foldernamesList = []
-    for folderName, subfolders, filenames in os.walk(folder):
+    for folderName, subfolders, filenames in os.walk(folderToClean):
         foldernamesList.append(folderName)
     for folderName in foldernamesList:
         for item in os.listdir(folderName):
@@ -87,11 +91,12 @@ def subfolder_unpacker():
                     shutil.move(file, destination)
     # Delete empty folders
     for emptyFolder in (foldernamesList):
-        if emptyFolder != folder:
+        if emptyFolder != folderToClean:
             try:
                 os.rmdir(emptyFolder)
             except OSError:
                 continue
 
 
-automatic_folder_cleaner()
+folderToClean = folderToClean()
+subfolder_unpacker()
