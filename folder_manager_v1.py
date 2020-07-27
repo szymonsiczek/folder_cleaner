@@ -3,10 +3,10 @@ import os
 import shutil
 
 
-def folderToClean():
+def folder_to_clean():
     print('Please enter the absolute path of a folder, that you want to work with:')
-    folderToClean = input()
-    return folderToClean
+    folder_to_clean = input()
+    return folder_to_clean
 
 
 def menu():
@@ -22,17 +22,18 @@ def menu():
         menu()
 
 
-def findFileTypesInFolder(folderToClean):
+def find_file_types_in_folder(folder_to_clean):
     finalListofFileTypes = []
-    for filename in os.listdir(folderToClean):
-        suffix = Path(os.path.join(folderToClean, filename)).suffix.strip('.')
+    for filename in os.listdir(folder_to_clean):
+        suffix = Path(os.path.join(folder_to_clean, filename)
+                      ).suffix.strip('.')
         if suffix not in finalListofFileTypes:
             finalListofFileTypes.append(suffix)
     return finalListofFileTypes
 
 
-def getSuffixWithoutDot(file):
-    path_file = Path(os.path.join(folderToClean, file))
+def get_suffix_without_dot(file):
+    path_file = Path(os.path.join(folder_to_clean, file))
     file_suffix = path_file.suffix
     suffix_without_dot = file_suffix.strip('.')
     return suffix_without_dot
@@ -55,37 +56,37 @@ def folder_cleaner():
         finalListOfFileTypes = separate_and_strip_file_types(fileTypesToClean)
         # Create a new folder for every type of file
         for filetype in finalListOfFileTypes:
-            newFolder = (os.path.join(folderToClean, (filetype.lower())))
+            newFolder = (os.path.join(folder_to_clean, (filetype.lower())))
             if not os.path.exists(newFolder):
                 os.makedirs(newFolder)
             # Segregate files into acuurate folders
-            for filename in os.listdir(folderToClean):
-                if getSuffixWithoutDot(filename).lower() == filetype.lower():
+            for filename in os.listdir(folder_to_clean):
+                if get_suffix_without_dot(filename).lower() == filetype.lower():
                     shutil.move(
-                        (os.path.join(folderToClean, filename)), newFolder)
+                        (os.path.join(folder_to_clean, filename)), newFolder)
 
 
 def automatic_folder_cleaner():
     # Define file types in a given folder
-    finalListOfFileTypes = findFileTypesInFolder(folderToClean)
+    finalListOfFileTypes = find_file_types_in_folder(folder_to_clean)
     # Create a new folder for every type of file
     for filetype in finalListOfFileTypes:
-        newFolder = (os.path.join(folderToClean, (filetype.lower())))
+        newFolder = (os.path.join(folder_to_clean, (filetype.lower())))
         if not os.path.exists(newFolder):
             os.makedirs(newFolder)
         # Segregate files into acuurate folders
-        for filename in os.listdir(folderToClean):
-            if os.path.isfile(os.path.join(folderToClean, filename)):
-                if getSuffixWithoutDot(filename).lower() == filetype.lower():
+        for filename in os.listdir(folder_to_clean):
+            if os.path.isfile(os.path.join(folder_to_clean, filename)):
+                if get_suffix_without_dot(filename).lower() == filetype.lower():
                     shutil.move(
-                        (os.path.join(folderToClean, filename)), newFolder)
+                        (os.path.join(folder_to_clean, filename)), newFolder)
 
 
 def subfolder_unpacker():
-    destination = folderToClean
+    destination = folder_to_clean
     # Unpack files from subfolders:
     foldernamesList = []
-    for folderName, subfolders, filenames in os.walk(folderToClean):
+    for folderName, subfolders, filenames in os.walk(folder_to_clean):
         foldernamesList.append(folderName)
     for folderName in foldernamesList:
         for item in os.listdir(folderName):
@@ -100,12 +101,12 @@ def subfolder_unpacker():
                     shutil.move(file, destination)
     # Delete empty folders
     for emptyFolder in (foldernamesList):
-        if emptyFolder != folderToClean:
+        if emptyFolder != folder_to_clean:
             try:
                 os.rmdir(emptyFolder)
             except OSError:
                 continue
 
 
-folderToClean = folderToClean()
+folder_to_clean = folder_to_clean()
 menu()
