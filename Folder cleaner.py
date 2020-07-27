@@ -17,7 +17,10 @@ def separate_and_strip_file_types(string):
 
 
 def getSuffixWithoutDot(file):
-    return Path(os.path.join(folderToClean, file)).suffix.strip('.')
+    path_file = Path(os.path.join(folderToClean, file))
+    file_suffix = path_file.suffix
+    suffix_without_dot = file_suffix.strip('.')
+    return suffix_without_dot
 
 
 # Ask user which folder needs to be cleaned
