@@ -9,6 +9,19 @@ def folderToClean():
     return folderToClean
 
 
+def menu():
+    print('\nChoose operation type: \n 1.Automatic folder cleaner\n 2.Clean folder file-type by file-type\n 3.Unpack files from subfolders\n\n(Press CTRL+C to end program)')
+    choice = input()
+    if choice == '1':
+        automatic_folder_cleaner()
+        menu()
+    elif choice == '2':
+        folder_cleaner()
+    elif choice == '3':
+        subfolder_unpacker()
+        menu()
+
+
 def findFileTypesInFolder(folderToClean):
     finalListofFileTypes = []
     for filename in os.listdir(folderToClean):
@@ -93,4 +106,4 @@ def subfolder_unpacker():
 
 
 folderToClean = folderToClean()
-subfolder_unpacker()
+menu()
