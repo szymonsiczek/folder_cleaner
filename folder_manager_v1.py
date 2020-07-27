@@ -48,8 +48,10 @@ def separate_and_strip_file_types(string):
 def folder_cleaner():
     # Ask user what types of files have to be cleaned
     while True:
-        print('\nPlease define what kind of files would you like to segregate. Pass them below with commas and spaces but without dots. Here is an example: "jpg, pdf, docx, zip".\n(OrPress "CTRL + C" to escape.)')
+        print('\nPlease define what kind of files would you like to segregate. Pass them below with commas and spaces but without dots. Here is an example: "jpg, pdf, docx, zip".\n(Or type MENU to go back to menu.)')
         fileTypesToClean = input()
+        if fileTypesToClean.lower() == 'menu':
+            menu()
         finalListOfFileTypes = separate_and_strip_file_types(fileTypesToClean)
         # Create a new folder for every type of file
         for filetype in finalListOfFileTypes:
